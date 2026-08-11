@@ -1,6 +1,6 @@
 ---
 name: scene-portrait-photo-fusion
-description: Fuse an authorized person reference and a real scene photo into 4, 8, 12, or 16 photorealistic portraits while preserving identity, a consistent wardrobe plan, proportions, scene geometry, lighting, scale, and ground contact. Use when placing a referenced person into another photographed location, preserving current clothes, applying user-specified clothes or shoes, completing unseen lower-body clothing from a half-body reference, generating a coherent portrait series, creating rich hand, torso, leaning, leg, foot, walking, turning, or interaction poses, or auditing identity and compositing realism.
+description: Fuse an authorized person reference and a real scene photo into 4, 8, 12, or 16 photorealistic portraits while preserving identity, wardrobe, proportions, background text and object anchors, scene geometry, lighting, scale, ground contact, and photographic realism. Use when placing a referenced person into another photographed location, preserving or changing clothes and shoes, completing unseen lower-body clothing, generating a coherent multi-pose portrait series, preventing background drift between outputs, or auditing identity and compositing realism.
 ---
 
 # Scene Portrait Photo Fusion
@@ -12,11 +12,12 @@ Generate finished individual photographs. Treat the person photo as the identity
 1. Identify `PERSON REFERENCE` and `SCENE REFERENCE` from content. State and correct conflicting user labels.
 2. Require user-supplied or explicitly authorized person imagery. Never identify the person or infer sensitive traits.
 3. Read [references/locks-and-realism.md](references/locks-and-realism.md). Publish identity, scene, and fusion locks.
-4. Read [references/wardrobe-planning.md](references/wardrobe-planning.md). Select one wardrobe mode, publish the complete outfit lock, and keep it unchanged across the series.
-5. Read [references/pose-library.md](references/pose-library.md). Build an internal pose matrix varying scene zone, body angle, torso, hands, legs, feet, gaze, crop, motion, and interaction.
-6. Read [references/generation-and-audit.md](references/generation-and-audit.md). Default to 8 photos; accept 4, 8, 12, or 16. Lock the numbered plan before generation.
-7. Use built-in image generation by default. Use one call per photograph and include both original references every time. Never replace individual deliverables with a collage.
-8. Audit every output, retry failed photos with one targeted correction, and return the plan, photos, optional contact sheet, and audit.
+4. Read [references/background-continuity.md](references/background-continuity.md). Create one canonical background plate and an anchor manifest before designing poses. If removals or cleanup are requested, perform them once on the plate and reuse that same plate throughout the series.
+5. Read [references/wardrobe-planning.md](references/wardrobe-planning.md). Select one wardrobe mode, publish the complete outfit lock, and keep it unchanged across the series.
+6. Read [references/pose-library.md](references/pose-library.md). Build an internal pose matrix varying scene zone, body angle, torso, hands, legs, feet, gaze, crop, motion, and interaction.
+7. Read [references/generation-and-audit.md](references/generation-and-audit.md). Default to 8 photos; accept 4, 8, 12, or 16. Lock the numbered plan before generation.
+8. Use built-in image editing or compositing by default, keeping the canonical background pixels unchanged outside the person integration region. Use one call per photograph and include the person reference plus canonical background plate every time. Never replace individual deliverables with a collage.
+9. Generate sequentially. Audit each output against the original scene and anchor manifest before starting the next. Retry failed photos with one targeted correction, then return the plan, photos, optional contact sheet, and audit.
 
 ## Inputs and defaults
 
@@ -39,7 +40,10 @@ Wardrobe modes:
 - Change clothing only in `specified` mode. In `auto-complete`, never redesign the visible upper garment; add only unseen lower clothing and shoes.
 - Lock one complete outfit and repeat it verbatim in every image call.
 - Match scale, horizon, ground plane, perspective, light, exposure, temperature, contrast, depth of field, grain, shadow, reflected light, occlusion, and edge integration.
-- Preserve scene geometry and anchors. Use only safe visible interactions.
+- Preserve the canonical background plate, including all visible text, glyph shapes, signs, doors, windows, decorations, devices, cables, and their exact count, order, position, orientation, scale, and color. Use only safe visible interactions.
+- Never independently redraw or clean the background for each output. Only the person, contact shadow, necessary foreground occlusion, and tightly localized integration pixels may change.
+- Different crops may reveal less of the same plate, but must not move, omit, rewrite, or invent a background anchor inside the visible crop.
+- Prefer unchanged source pixels over generative reconstruction. If exact text or object preservation cannot be guaranteed, disclose the limitation and use a mask/composite workflow rather than regenerating the full scene.
 
 ## Pose diversity
 
