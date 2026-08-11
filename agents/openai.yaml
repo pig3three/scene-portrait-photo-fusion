@@ -1,4 +1,4 @@
 interface:
   display_name: "场景人像融合摄影"
-  short_description: "将授权人物自然融入真实场景并生成多姿势一致写真照片"
-  default_prompt: "用 $scene-portrait-photo-fusion 融合已上传的授权人物照片和场景照片，保持人物身份、服装与场景真实一致，生成一组不同姿势的独立人像成片。"
+  short_description: "融合授权人物与真实场景并支持指定或自动补全服饰鞋履"
+  default_prompt: "用 $scene-portrait-photo-fusion 融合已上传的授权人物照片和场景照片，保留当前服饰、按描述换装或为半身照自动补全下装与鞋子，并生成身份一致的多姿势独立人像成片。"
