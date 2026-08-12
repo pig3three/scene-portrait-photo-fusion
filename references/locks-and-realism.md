@@ -16,6 +16,7 @@ For the scene, record viewpoint/horizon, ground plane, depth zones, placements, 
 8. Avoid cutout halos, floating feet, duplicate shadows, inconsistent bokeh, or impossible reflections.
 9. Match the source camera's natural microcontrast, noise, sharpening, color response, lens softness, and compression. Do not make the subject cleaner or sharper than the scene permits.
 10. Preserve pores, fine hair, ordinary facial asymmetry, believable cloth folds, and subtle tonal variation. Avoid waxy skin, beauty-filter smoothing, over-HDR contrast, synthetic rim light, excessive background blur, perfect bilateral symmetry, and uniformly sharp edges.
+11. Route scale, distance-dependent detail, environment-light sampling, and three-layer grounding shadows through [distance-and-perspective.md](distance-and-perspective.md).
 
 Use open space first; then gesture toward a real anchor; touch, lean, or sit only on a visible stable permitted surface.
 
@@ -24,4 +25,5 @@ IDENTITY LOCK: preserve recognizable face, apparent age, skin tone, hair, and pr
 WARDROBE LOCK: preserve the selected current, specified, or auto-completed outfit exactly; no garment, color, hem, shoe, or accessory drift.
 SCENE LOCK: reuse the canonical background plate; preserve exact visible text/glyph shapes, architecture, surfaces, anchor counts and positions, devices, cables, perspective, light, texture, grain, and approved removals; no redrawing or invented objects.
 FUSION LOCK: believable contact, scale, perspective, occlusion, shadow, reflected light, edges, lens character, depth of field, grain, and color.
+DISTANCE REALISM LOCK: match same-depth objects in resolution, acuity, contrast, saturation, grain, atmospheric perspective, depth of field, and motion blur; no oversized head or impossible facial detail.
 ```

@@ -1,6 +1,6 @@
 ---
 name: scene-portrait-photo-fusion
-description: Fuse an authorized person reference and a real scene photo into 4, 8, 12, or 16 photorealistic portraits while preserving identity, wardrobe, proportions, background text and object anchors, scene geometry, lighting, scale, ground contact, and photographic realism. Use when placing a referenced person into another photographed location, preserving or changing clothes and shoes, completing unseen lower-body clothing, generating a coherent multi-pose portrait series, preventing background drift between outputs, or auditing identity and compositing realism.
+description: Fuse an authorized person reference and a real scene photo into 4, 8, 12, or 16 photorealistic near-, medium-, or long-distance portraits while preserving identity, wardrobe, proportions, background anchors, perspective, distance-dependent detail, lighting, ground contact, and photographic realism. Use when placing a referenced person into another photographed location, completing or changing clothing, generating a multi-pose series, preventing background drift, correcting pasted-looking distant subjects, or auditing identity and compositing realism.
 ---
 
 # Scene Portrait Photo Fusion
@@ -13,11 +13,12 @@ Generate finished individual photographs. Treat the person photo as the identity
 2. Require user-supplied or explicitly authorized person imagery. Never identify the person or infer sensitive traits.
 3. Read [references/locks-and-realism.md](references/locks-and-realism.md). Publish identity, scene, and fusion locks.
 4. Read [references/background-continuity.md](references/background-continuity.md). Create one canonical background plate and an anchor manifest before designing poses. If removals or cleanup are requested, perform them once on the plate and reuse that same plate throughout the series.
-5. Read [references/wardrobe-planning.md](references/wardrobe-planning.md). Select one wardrobe mode, publish the complete outfit lock, and keep it unchanged across the series.
-6. Read [references/pose-library.md](references/pose-library.md). Build an internal pose matrix varying scene zone, body angle, torso, hands, legs, feet, gaze, crop, motion, and interaction.
-7. Read [references/generation-and-audit.md](references/generation-and-audit.md). Default to 8 photos; accept 4, 8, 12, or 16. Lock the numbered plan before generation.
-8. Use built-in image editing or compositing by default, keeping the canonical background pixels unchanged outside the person integration region. Use one call per photograph and include the person reference plus canonical background plate every time. Never replace individual deliverables with a collage.
-9. Generate sequentially. Audit each output against the original scene and anchor manifest before starting the next. Retry failed photos with one targeted correction, then return the plan, photos, optional contact sheet, and audit.
+5. Read [references/distance-and-perspective.md](references/distance-and-perspective.md). Classify every shot as near, medium, or long; publish the horizon, ground point, reference anchor, target person-height ratio, environment-light sample, and distance realism lock.
+6. Read [references/wardrobe-planning.md](references/wardrobe-planning.md). Select one wardrobe mode, publish the complete outfit lock, and keep it unchanged across the series.
+7. Read [references/pose-library.md](references/pose-library.md). Build an internal pose matrix varying scene zone, body angle, torso, hands, legs, feet, gaze, crop, motion, and interaction.
+8. Read [references/generation-and-audit.md](references/generation-and-audit.md). Default to 8 photos; accept 4, 8, 12, or 16. Lock the numbered plan before generation.
+9. Use a two-stage workflow when the tool supports it: first create the identity-, wardrobe-, pose-, and viewpoint-correct person layer; then integrate only that layer into the canonical plate with distance matching, occlusion, reflected light, and three-layer shadows. Otherwise express both stages explicitly in one tightly masked edit. Never regenerate the full scene.
+10. Generate sequentially. Audit each output against the original scene, distance calibration, and anchor manifest before starting the next. Retry failed photos with one targeted correction, then return the plan, photos, optional contact sheet, and audit.
 
 ## Inputs and defaults
 
@@ -44,6 +45,8 @@ Wardrobe modes:
 - Never independently redraw or clean the background for each output. Only the person, contact shadow, necessary foreground occlusion, and tightly localized integration pixels may change.
 - Different crops may reveal less of the same plate, but must not move, omit, rewrite, or invent a background anchor inside the visible crop.
 - Prefer unchanged source pixels over generative reconstruction. If exact text or object preservation cannot be guaranteed, disclose the limitation and use a mask/composite workflow rather than regenerating the full scene.
+- Never create a distant subject by merely shrinking a near-shot person. Recalculate scale, head-to-body perception, perspective, spatial resolution, edge sharpness, microcontrast, color, atmospheric perspective, grain, and shadow strength for the target depth.
+- A subject may not be sharper, cleaner, more saturated, or more detailed than real objects at the same depth.
 
 ## Pose diversity
 
@@ -60,6 +63,9 @@ legs, feet, and weight:
 head, gaze, and expression:
 environment interaction:
 framing and camera view:
+distance mode and target person-height ratio:
+ground point, horizon, and scale reference:
+distance-detail and atmospheric lock:
 light and shadow integration:
 identity invariants:
 wardrobe mode and complete outfit lock:
